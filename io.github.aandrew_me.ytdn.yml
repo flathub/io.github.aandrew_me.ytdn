@@ -60,8 +60,8 @@ modules:
         commit: bfbf1a5be1d721ef5b9a380073b228b35b660c66
         dest: main
       - type: archive
-        url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-02-25-12-51/ffmpeg-n5.1.2-39-g2953c6381a-linux64-gpl-5.1.tar.xz
-        sha256: 2ef6790f90413fe22295dc5d8c44d8f3f841288475fd6530322f20e16d2845fc
+        url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-03-23-15-58/ffmpeg-n6.0-11-g3980415627-linux64-gpl-6.0.tar.xz
+        sha256: dd86c0e1183cd24d4d6edf249843720eb879a4f358c22f8ea74b8fa5639efd19
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
