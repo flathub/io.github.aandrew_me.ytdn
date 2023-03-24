@@ -61,7 +61,7 @@ modules:
         dest: main
       - type: archive
         url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-03-23-15-58/ffmpeg-n6.0-11-g3980415627-linux64-gpl-6.0.tar.xz
-        sha256: fbd353c8e8db3782e892b9e86b3b8d13ac0b2d983f6f3539d1112a7416d527cd
+        sha256: dd86c0e1183cd24d4d6edf249843720eb879a4f358c22f8ea74b8fa5639efd19
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
