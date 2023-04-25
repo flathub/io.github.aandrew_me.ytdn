@@ -57,14 +57,15 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: bfb56f0b504b0c037af4a584cc1b06e4f32e85bb
+        commit: 792ad0f20581141b4c061f3cc2dd34b80f1524d6
         dest: main
       - type: archive
-        url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-04-08-12-47/ffmpeg-n6.0-12-ga6dc92968a-linux64-gpl-6.0.tar.xz
-        sha256: 0b609eea57ba6cfcce7efe5d558d0318199bf1f794b46cdd8e69c7704c9ba809
+        url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-04-25-12-36/ffmpeg-n6.0-17-g8f61cbf1b9-linux64-gpl-6.0.tar.xz
+        sha256: acb573835fa3f83b8bb3450b8c7082401c7d4e6b5c33d4c32e8812b851f96cba
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
         dest-filename: run.sh
         commands:
           - zypak-wrapper.sh /app/main/ytdownloader "$@"
+          
