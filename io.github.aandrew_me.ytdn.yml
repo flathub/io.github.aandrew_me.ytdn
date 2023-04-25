@@ -30,7 +30,7 @@ modules:
         npm_config_offline: 'true'
     build-commands:
       # Install npm dependencies
-      - npm install --offline
+      - yarn --offline
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
       - install -Dm777 ../bin/ffmpeg ffmpeg
