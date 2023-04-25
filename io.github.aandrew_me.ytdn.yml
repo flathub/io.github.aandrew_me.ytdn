@@ -57,7 +57,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: bf4d461a1b52fec6ceda5720d4f0de561465b018
+        commit: 792ad0f20581141b4c061f3cc2dd34b80f1524d6
         dest: main
       - type: archive
         url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-04-25-12-36/ffmpeg-n6.0-17-g8f61cbf1b9-linux64-gpl-6.0.tar.xz
