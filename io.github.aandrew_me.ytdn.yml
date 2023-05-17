@@ -33,11 +33,10 @@ modules:
       - npm install --offline
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
-      - ls 
-      - ls ..
-      - uname -m
-      - install -Dm777 ../bin/ffmpeg ffmpeg
+      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
+      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
+      - rm windows.sh linux.sh mac.sh crowdin.yml README.md
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
