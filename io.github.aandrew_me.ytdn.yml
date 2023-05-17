@@ -33,6 +33,9 @@ modules:
       - npm install --offline
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
+      - ls 
+      - ls ../bin
+      - uname -m
       - install -Dm777 ../bin/ffmpeg ffmpeg
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
       - |
@@ -59,9 +62,12 @@ modules:
         url: https://github.com/aandrew-me/ytDownloader.git
         commit: 792ad0f20581141b4c061f3cc2dd34b80f1524d6
         dest: main
-      - type: archive
-        url: https://github.com/yt-dlp/FFmpeg-Builds/releases/download/autobuild-2023-04-25-12-36/ffmpeg-n6.0-17-g8f61cbf1b9-linux64-gpl-6.0.tar.xz
-        sha256: acb573835fa3f83b8bb3450b8c7082401c7d4e6b5c33d4c32e8812b851f96cba
+      - type: file
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
+        sha256: 912f1f09f1daa76a8abb8b30807796124941bc6ff05aad0ba1619cb38bc94896
+      - type: file
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_arm64
+        sha256: e25ac96b9c50c06ccf746f0395721fc314875827f94d946c984b5b92c2fc7764
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
