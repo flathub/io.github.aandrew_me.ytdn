@@ -34,7 +34,7 @@ modules:
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
       - ls 
-      - ls ../bin
+      - ls ..
       - uname -m
       - install -Dm777 ../bin/ffmpeg ffmpeg
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
