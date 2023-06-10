@@ -14,6 +14,8 @@ finish-args:
   - --filesystem=home
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=com.canonical.AppMenu.Registrar
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --own-name=org.kde.*
   - --share=network
 
 build-options:
@@ -59,7 +61,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 453a90e7ed50049f31168d1c017e4dbbd82b0757
+        commit: 06b7be55f73887665fa504f6271ef9e5b7cc6316
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
