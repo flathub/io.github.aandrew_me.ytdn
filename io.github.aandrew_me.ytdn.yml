@@ -65,10 +65,10 @@ modules:
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
-        sha256: 912f1f09f1daa76a8abb8b30807796124941bc6ff05aad0ba1619cb38bc94896
+        sha256: 286e35114f813e38f0b9532b75eae592eb5850e665b31565e50c418a6ff67536
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_arm64
-        sha256: e25ac96b9c50c06ccf746f0395721fc314875827f94d946c984b5b92c2fc7764
+        sha256: 99c4beb642d63f506e3bcc2d9afd9477e379fbae653df0bc53679e26268cbf29
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
