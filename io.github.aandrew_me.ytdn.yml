@@ -15,7 +15,6 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=org.kde.StatusNotifierWatcher
-  - --own-name=org.kde.*
   - --share=network
 
 build-options:
