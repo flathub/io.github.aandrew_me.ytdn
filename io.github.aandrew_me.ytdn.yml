@@ -1,9 +1,9 @@
 app-id: io.github.aandrew_me.ytdn
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '22.08'
+base-version: '23.08'
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node18
 command: run.sh
@@ -15,7 +15,6 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=com.canonical.AppMenu.Registrar
   - --talk-name=org.kde.StatusNotifierWatcher
-  - --own-name=org.kde.*
   - --share=network
 
 build-options:
@@ -61,7 +60,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: c51a20492ebc23e5ffcf930fef6a96eee3bd350b
+        commit: 067db18a8f1ef80114caf99cbd5ee57a4e301890
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
