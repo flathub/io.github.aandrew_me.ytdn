@@ -60,7 +60,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 067db18a8f1ef80114caf99cbd5ee57a4e301890
+        commit: d49c1f1b16d3ecf6b512979fbcfba1ce0d6dba4d
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
