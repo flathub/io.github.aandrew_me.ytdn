@@ -34,7 +34,7 @@ modules:
     build-commands:
       # Install npm dependencies
       - npm install --offline
-      # Build the app; in this example the `dist` script
+      # Build the app. in this example the `dist` script
       # in package.json runs electron-builder
       - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
       - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
@@ -62,7 +62,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 1d74ce95ce3d6185728eb7fe3c4b9a30de3919c6
+        commit: e778abf297dbf94691148a68f5476d089a0cb7a1
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
