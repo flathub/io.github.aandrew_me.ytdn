@@ -1,13 +1,20 @@
 app-id: io.github.aandrew_me.ytdn
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '24.08'
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node18
+  - org.freedesktop.Sdk.Extension.node22
 command: run.sh
 separate-locales: false
+add-extensions:
+  org.freedesktop.Platform.ffmpeg-full:
+    version: '24.08'
+    directory: lib/ffmpeg
+    add-ld-path: .
+cleanup-commands:
+  - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -20,7 +27,7 @@ finish-args:
   - --device=dri
 
 build-options:
-  append-path: /usr/lib/sdk/node18/bin
+  append-path: /usr/lib/sdk/node22/bin
   env:
     NPM_CONFIG_LOGLEVEL: info
 modules:
@@ -36,8 +43,6 @@ modules:
       - npm install --offline
       # Build the app. in this example the `dist` script
       # in package.json runs electron-builder
-      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
-      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
       - rm windows.sh linux.sh mac.sh crowdin.yml README.md
       - |
@@ -64,12 +69,6 @@ modules:
         url: https://github.com/aandrew-me/ytDownloader.git
         commit: 4787cfebce84c6cdd369320f97e6448d3d5711d9
         dest: main
-      - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
-        sha256: 286e35114f813e38f0b9532b75eae592eb5850e665b31565e50c418a6ff67536
-      - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_arm64
-        sha256: 99c4beb642d63f506e3bcc2d9afd9477e379fbae653df0bc53679e26268cbf29
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
