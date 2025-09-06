@@ -56,13 +56,13 @@ modules:
 
       - install -Dm644 resources/icons/64x64.png /app/share/icons/hicolor/64x64/apps/io.github.aandrew_me.ytdn.png
 
-      # Install app wrapper
+      # Install App wrapper
       - install -Dm755 -t /app/bin/ ../run.sh
     subdir: main
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: aded072732b7c3312042edad9053139bd3940a67
+        commit: 1c65343c228bd7e64edce964fd70bf0b8a228828
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
