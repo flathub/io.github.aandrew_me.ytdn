@@ -38,13 +38,16 @@ modules:
       # in package.json runs electron-builder
       - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
       - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
-      - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
+      - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json    
       - rm windows.sh linux.sh mac.sh crowdin.yml README.md
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
+
+      # Remove chromium locale files
+      - find /app/main/locales -type f ! -name 'en-US.pak' -delete
 
       - install -Dm755 flatpak/io.github.aandrew_me.ytdn.metainfo.xml /app/share/metainfo/io.github.aandrew_me.ytdn.metainfo.xml
 
