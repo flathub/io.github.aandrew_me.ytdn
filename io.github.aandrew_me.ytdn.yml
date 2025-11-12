@@ -38,6 +38,9 @@ modules:
       # in package.json runs electron-builder
       - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
       - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
+      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../deno_linux_amd64 deno; fi
+      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../deno_linux_arm64 deno; fi
+
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json    
       - rm windows.sh linux.sh mac.sh crowdin.yml README.md
       - |
@@ -65,7 +68,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 1c65343c228bd7e64edce964fd70bf0b8a228828
+        commit: 5a80e010da90189ce5e63a4e695de5fa77bd1b41
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
@@ -73,6 +76,12 @@ modules:
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_arm64
         sha256: 99c4beb642d63f506e3bcc2d9afd9477e379fbae653df0bc53679e26268cbf29
+      - type: file
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/deno_linux_amd64
+        sha256: af311da844fc9898be927f0ebc271057bebce4b4ea53287b45fd44b795bc37e5
+      - type: file
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/deno_linux_arm64
+        sha256: 5e956512c44ec785f48bb54ab35b1a186cef1be888cf173d3d74b3fa2ddce0f0
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
