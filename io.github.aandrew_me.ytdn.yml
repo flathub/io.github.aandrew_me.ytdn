@@ -34,18 +34,32 @@ modules:
     build-commands:
       # Install npm dependencies
       - npm install --offline
-      # Build the app. in this example the `dist` script
-      # in package.json runs electron-builder
-      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../ffmpeg_linux_amd64 ffmpeg; fi
-      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../ffmpeg_linux_arm64 ffmpeg; fi
+
+      # Extract and prepare ffmpeg for the target architecture, rename to 'ffmpeg'
+      - |
+        if [[ $(uname -m) == "x86_64" ]]; then
+          tar -xJf ../ffmpeg_linux_amd64.tar.xz
+          mv ffmpeg_linux_amd64 ffmpeg
+        fi
+      - |
+        if [[ $(uname -m) == "aarch64" ]]; then
+          tar -xJf ../ffmpeg_linux_arm64.tar.xz
+          mv ffmpeg_linux_arm64 ffmpeg
+        fi
+
+      - chmod +x ffmpeg/bin/ffmpeg
+      - chmod +x ffmpeg/bin/ffprobe
+      - chmod +x ffmpeg/bin/ffplay
+
       - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../deno_linux_amd64 deno; fi
       - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../deno_linux_arm64 deno; fi
 
-      - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json    
-      - rm windows.sh linux.sh mac.sh crowdin.yml README.md
+      - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
+      - rm windows.ps1 linux.sh mac.sh crowdin.yml README.md tsconfig.json ytdownloader.json
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
+
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
 
@@ -68,19 +82,19 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 5a80e010da90189ce5e63a4e695de5fa77bd1b41
+        commit: 0bcec8a61582c4449194ead9018336692b0106ba
         dest: main
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_amd64
-        sha256: 286e35114f813e38f0b9532b75eae592eb5850e665b31565e50c418a6ff67536
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
+        sha256: b9d1a8462248dc2a005553ad723b9e7c8f6606a5786a14fdc59b5cc3e25da7b7
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/ffmpeg_linux_arm64
-        sha256: 99c4beb642d63f506e3bcc2d9afd9477e379fbae653df0bc53679e26268cbf29
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_arm64.tar.xz
+        sha256: 754a3d1df0bf5a0c9584e8cec13ef65cb244ce651aba135cc352b910d8bb7ebd
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/deno_linux_amd64
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/deno_linux_amd64
         sha256: af311da844fc9898be927f0ebc271057bebce4b4ea53287b45fd44b795bc37e5
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v6/deno_linux_arm64
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/deno_linux_arm64
         sha256: 5e956512c44ec785f48bb54ab35b1a186cef1be888cf173d3d74b3fa2ddce0f0
       - generated-sources.json
       # Wrapper to launch the app
@@ -88,4 +102,3 @@ modules:
         dest-filename: run.sh
         commands:
           - zypak-wrapper.sh /app/main/ytdownloader "$@"
-          
