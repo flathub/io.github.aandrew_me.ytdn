@@ -18,6 +18,7 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
   - --share=network
   - --device=dri
+  - --env=LD_LIBRARY_PATH=/app/lib
 
 build-options:
   append-path: /usr/lib/sdk/node22/bin
@@ -35,24 +36,27 @@ modules:
       # Install npm dependencies
       - npm install --offline
 
-      # Extract and prepare ffmpeg for the target architecture, rename to 'ffmpeg'
+      # ------------------------------
+      # Extract FFmpeg for the target architecture
+      # ------------------------------
       - |
         if [[ $(uname -m) == "x86_64" ]]; then
           tar -xJf ../ffmpeg_linux_amd64.tar.xz
           mv ffmpeg_linux_amd64 ffmpeg
-        fi
-      - |
-        if [[ $(uname -m) == "aarch64" ]]; then
+        else
           tar -xJf ../ffmpeg_linux_arm64.tar.xz
           mv ffmpeg_linux_arm64 ffmpeg
         fi
 
-      - chmod +x ffmpeg/bin/ffmpeg
-      - chmod +x ffmpeg/bin/ffprobe
-      - chmod +x ffmpeg/bin/ffplay
+      # ------------------------------
+      # Install FFmpeg files
+      # ------------------------------
 
-      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../deno_linux_amd64 deno; fi
-      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../deno_linux_arm64 deno; fi
+      - install -Dm755 ffmpeg/lib/*.so* -t /app/lib/
+      - rm -rf ffmpeg/lib/*
+
+      - if [[ $(uname -m) == "x86_64" ]]; then install -Dm777 ../node_linux_amd64 node; fi
+      - if [[ $(uname -m) == "aarch64" ]]; then install -Dm777 ../node_linux_arm64 node; fi
 
       - jq '.build = {"asar":"false"}' <<<$(<package.json) > package.json
       - rm windows.ps1 linux.sh mac.sh crowdin.yml README.md tsconfig.json ytdownloader.json
@@ -82,20 +86,20 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 0bcec8a61582c4449194ead9018336692b0106ba
+        commit: 3c4ee32c59e84fd336579f9aa50b264442db3ded
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
-        sha256: b9d1a8462248dc2a005553ad723b9e7c8f6606a5786a14fdc59b5cc3e25da7b7
+        sha256: 0aa5efcfde21f3fc75a1a685f7bbac6992c6fe2e11702e13f2d4a541d90a94cb
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_arm64.tar.xz
-        sha256: 754a3d1df0bf5a0c9584e8cec13ef65cb244ce651aba135cc352b910d8bb7ebd
+        sha256: b8cec4c6d222dc0fbf6ec7e5d8df8b96dc2fa496b02178a9f07713158bfd0db8
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/deno_linux_amd64
-        sha256: af311da844fc9898be927f0ebc271057bebce4b4ea53287b45fd44b795bc37e5
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_amd64
+        sha256: 8d01d4c50e7a9047d70196f8fc6f1b165069065b44bd9402491544bd70586c7d
       - type: file
-        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/deno_linux_arm64
-        sha256: 5e956512c44ec785f48bb54ab35b1a186cef1be888cf173d3d74b3fa2ddce0f0
+        url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_arm64
+        sha256: b5c452c0d619d732e9593941ed31a1320f4ab1d3d7afce44c03f90f0e258d376
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
