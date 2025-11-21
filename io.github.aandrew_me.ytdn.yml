@@ -63,6 +63,8 @@ modules:
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
+      
+      - rm dist/linux*unpacked/LICENSES.chromium.html
 
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
