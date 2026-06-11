@@ -88,7 +88,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 2770b6c230d393e6b77a084c0f7cb638be56ad28
+        commit: e7e9a619d7e79f9ba458eb64eb1b548db5ddf1ca
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
@@ -98,10 +98,10 @@ modules:
         sha256: b8cec4c6d222dc0fbf6ec7e5d8df8b96dc2fa496b02178a9f07713158bfd0db8
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_amd64
-        sha256: 8d01d4c50e7a9047d70196f8fc6f1b165069065b44bd9402491544bd70586c7d
+        sha256: e6ec2c188d83d813f81f2de8aea084d74dce603ac1abedd0a30ad941b10087b2
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_arm64
-        sha256: b5c452c0d619d732e9593941ed31a1320f4ab1d3d7afce44c03f90f0e258d376
+        sha256: 41c1ec75816937af3893453a82b1535c566c65b682c67fbc59a0546b27c027bd
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
