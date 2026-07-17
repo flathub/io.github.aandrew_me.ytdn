@@ -30,6 +30,7 @@ modules:
     build-options:
       env:
         XDG_CACHE_HOME: /run/build/ytdownloader/flatpak-node/cache
+        ELECTRON_CACHE: /run/build/ytdownloader/flatpak-node/cache/electron
         npm_config_cache: /run/build/ytdownloader/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
@@ -88,7 +89,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: e7e9a619d7e79f9ba458eb64eb1b548db5ddf1ca
+        commit: 7ff5023b8086b073dd20a6114b75837d4f882cc9
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
