@@ -30,11 +30,21 @@ modules:
     build-options:
       env:
         XDG_CACHE_HOME: /run/build/ytdownloader/flatpak-node/cache
-        npm_config_cache: /run/build/ytdownloader/flatpak-node/npm-cache
-        npm_config_offline: 'true'
+        YARN_CACHE_FOLDER: /run/build/ytdownloader/flatpak-node/yarn-cache
+        YARN_YARN_OFFLINE_MIRROR: ../flatpak-node/yarn-mirror
+        YARN_YARN_OFFLINE_MIRROR_PRUNING: 'false'
+        ELECTRON_CACHE: /run/build/ytdownloader/flatpak-node/cache/electron
     build-commands:
-      # Install npm dependencies
-      - npm install --offline
+      - |
+          mkdir -p /app/share/yarn
+          if [ -d ../yarn-bin/yarn-v1.22.22 ]; then
+            cp -a ../yarn-bin/yarn-v1.22.22/* /app/share/yarn/
+          else
+            cp -a ../yarn-bin/* /app/share/yarn/
+          fi
+          ln -s /app/share/yarn/bin/yarn /app/bin/yarn
+
+      - yarn install --offline --frozen-lockfile  
 
       # ------------------------------
       # Extract FFmpeg for the target architecture
@@ -62,7 +72,7 @@ modules:
       - rm windows.ps1 linux.sh mac.sh crowdin.yml README.md tsconfig.json ytdownloader.json
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
-        npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
+        yarn run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
       
       - rm dist/linux*unpacked/LICENSES.chromium.html
 
@@ -88,7 +98,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 5f44dd712f0cb91809dfd526c455f967e985e2a8
+        commit: 6a32378b19ccfcc37d659f66872cb811acca4645
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
@@ -102,6 +112,10 @@ modules:
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_arm64
         sha256: 41c1ec75816937af3893453a82b1535c566c65b682c67fbc59a0546b27c027bd
+      - type: archive
+        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-v1.22.22.tar.gz
+        sha256: 88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
+        dest: yarn-bin
       - generated-sources.json
       # Wrapper to launch the app
       - type: script
