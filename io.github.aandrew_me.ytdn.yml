@@ -31,6 +31,7 @@ modules:
       env:
         XDG_CACHE_HOME: /run/build/ytdownloader/flatpak-node/cache
         ELECTRON_CACHE: /run/build/ytdownloader/flatpak-node/cache/electron
+        electron_config_cache: /run/build/ytdownloader/flatpak-node/cache/electron
         npm_config_cache: /run/build/ytdownloader/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
@@ -63,7 +64,7 @@ modules:
       - rm windows.ps1 linux.sh mac.sh crowdin.yml README.md tsconfig.json ytdownloader.json
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
-        npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir
+        npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS --linux --dir -c.electronDist=/run/build/ytdownloader/flatpak-node/cache/electron
       
       - rm dist/linux*unpacked/LICENSES.chromium.html
 
@@ -89,7 +90,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: 7ff5023b8086b073dd20a6114b75837d4f882cc9
+        commit: a6b1f27e1f1d52303b9154427552d445cd19a9f4
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
