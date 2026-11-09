@@ -1,16 +1,17 @@
 app-id: io.github.aandrew_me.ytdn
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '25.08'
+base-version: '26.08'
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node22
 command: run.sh
 separate-locales: false
 finish-args:
   - --share=ipc
-  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --persist=.ytDownloader
   - --filesystem=xdg-download
   - --talk-name=org.freedesktop.Notifications
@@ -90,7 +91,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/aandrew-me/ytDownloader.git
-        commit: a6b1f27e1f1d52303b9154427552d445cd19a9f4
+        commit: 4edd7cf00f4b2712e47b4f8b11c013b6ae9cc8b3
         dest: main
       - type: file
         url: https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz
